@@ -1,6 +1,6 @@
 IMG_SIZE = 256
 BATCH_SIZE = 8
 LR = 2e-4
-EPOCHS = 20
+EPOCHS = 2
 LAMBDA_L1 = 100
 SAVE_DIR = "/models"

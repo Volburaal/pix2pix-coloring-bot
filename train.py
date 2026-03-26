@@ -31,7 +31,7 @@ def train_model(train_loader, name="model"):
 
             # Generator
             opt_G.zero_grad()
-            with autocast():
+            with autocast(device):
                 y_fake = G(x)
                 loss_GAN = criterion_GAN(D(x, y_fake), real)
                 loss_L1 = criterion_L1(y_fake, y)

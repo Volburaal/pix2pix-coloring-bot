@@ -6,8 +6,8 @@ from config import BATCH_SIZE
 from train import train_model
 from results import plot_losses, show_samples
 
-cuhk_path = "/data/cuhk"
-anime_path = "/data/anime"
+cuhk_path = "data\\cuhk"
+anime_path = "data\\anime"
 
 cuhk_ds = Pix2PixDataset(cuhk_path, "cuhk")
 anime_ds = Pix2PixDataset(anime_path, "anime")
