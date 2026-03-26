@@ -1,7 +1,7 @@
 import os
 import torch
 import torch.nn as nn
-from torch.cuda.amp import autocast, GradScaler
+from torch.amp import autocast, GradScaler
 
 from model import Generator, Discriminator
 from config import EPOCHS, LAMBDA_L1, SAVE_DIR, LR
