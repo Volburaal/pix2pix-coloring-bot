@@ -42,7 +42,7 @@ def train_model(train_loader, name="model"):
 
             # Discriminator
             opt_D.zero_grad()
-            with autocast():
+            with autocast(device):
                 loss_real = criterion_GAN(D(x, y), real)
                 loss_fake = criterion_GAN(D(x, y_fake.detach()), fake)
                 loss_D = (loss_real + loss_fake) * 0.5
