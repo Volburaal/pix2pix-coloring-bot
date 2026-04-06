@@ -34,10 +34,8 @@ class Pix2PixDataset(Dataset):
 
         else:
             img = Image.open(os.path.join(self.root_dir, self.files[idx])).convert("RGB")
-            # img = self.transform(img)
-
-            w = img.shape[2]
-            color = img[:, :, :w//2]
-            sketch = img[:, :, w//2:]
+            w, h = img.size
+            color = img.crop((0, 0, w // 2, h))
+            sketch = img.crop((w // 2, 0, w, h))
 
             return self.transform(sketch), self.transform(color)

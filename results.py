@@ -1,5 +1,6 @@
 import torch
 import matplotlib.pyplot as plt
+import numpy as np
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -33,10 +34,11 @@ def show_samples(G, loader):
         plt.show()
 
 def plot_losses(G_losses, D_losses, title="Training Loss"):
-    plt.plot(G_losses, label="Generator")
-    plt.plot(D_losses, label="Discriminator")
+    plt.plot(np.array(G_losses), label="Generator")
+    plt.plot(np.array(D_losses) * 100, label="Discriminator")
     plt.legend()
     plt.title(title)
+    plt.savefig(title, bbox_inches="tight")
     plt.show()
 
 cuhk_path = "/content/data/cuhk"

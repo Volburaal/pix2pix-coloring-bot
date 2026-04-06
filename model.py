@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 def down_block(in_c, out_c, normalize=True):
     layers = [nn.Conv2d(in_c, out_c, 4, 2, 1, bias=False)]
@@ -43,10 +44,19 @@ class Generator(nn.Module):
         d4 = self.d4(d3)
 
         u1 = self.u1(d4)
+        if u1.shape[2:] != d3.shape[2:]:
+            u1 = F.interpolate(u1, size=d3.shape[2:], mode="bilinear", align_corners=False)
         u2 = self.u2(torch.cat([u1, d3], dim=1))
+        if u2.shape[2:] != d2.shape[2:]:
+            u2 = F.interpolate(u2, size=d2.shape[2:], mode="bilinear", align_corners=False)
         u3 = self.u3(torch.cat([u2, d2], dim=1))
+        if u3.shape[2:] != d1.shape[2:]:
+            u3 = F.interpolate(u3, size=d1.shape[2:], mode="bilinear", align_corners=False)
 
-        return self.final(torch.cat([u3, d1], dim=1))
+        out = self.final(torch.cat([u3, d1], dim=1))
+        if out.shape[2:] != x.shape[2:]:
+            out = F.interpolate(out, size=x.shape[2:], mode="bilinear", align_corners=False)
+        return out
     
 class Discriminator(nn.Module):
     def __init__(self):
