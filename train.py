@@ -45,7 +45,7 @@ def train_model(train_loader, name="model"):
             with autocast(device):
                 loss_real = criterion_GAN(D(x, y), real)
                 loss_fake = criterion_GAN(D(x, y_fake.detach()), fake)
-                loss_D = (loss_real + loss_fake) * 0.5
+                loss_D = (loss_real + loss_fake) / 2.0
 
             scaler.scale(loss_D).backward()
             scaler.step(opt_D)
